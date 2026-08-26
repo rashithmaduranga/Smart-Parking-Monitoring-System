@@ -141,33 +141,17 @@ The ESP32 collects sensor data and sends it to the backend using **HTTP POST req
 
 ## ⚙️ How to Setup
 
-1. **Clone Repository:** Clone the project to your local machine.
+1. **Hardware Setup:** Connect the ultrasonic sensors, IR sensors, LDR, LEDs, servo motors, and display to the ESP32 according to the pin configuration in the `.ino` file.
 
-2. **Setup Backend:** Open the `Backend` folder and install the dependencies.
+2. **Backend & Database Configuration:**
+   - Install MongoDB and make sure the MongoDB service is running.
+   - Create a `.env` file inside the `Backend` folder.
+   - Add the `MONGODB_URI` and `PORT` configuration to the `.env` file.
+   - Run `npm install` to install the required backend dependencies.
 
-   ```bash
-   cd Backend
-   npm install
-   ```
+3. **Upload Code:** Enter your WiFi credentials and backend IP address in the ESP32 code, then upload the `.ino` file to the ESP32 using Arduino IDE.
 
-3. **Configure Environment:** Create a `.env` file and add your MongoDB connection and server settings.
-
-   ```env
-   MONGODB_URI=mongodb://127.0.0.1:27017/smart-parking
-   PORT=8080
-   ```
-
-4. **Start Backend:** Run the backend server.
-
-   ```bash
-   npm start
-   ```
-
-5. **Setup ESP32:** Open the ESP32 code in Arduino IDE, configure Wi-Fi and the backend IP address, then upload the code.
-
-6. **Run Frontend:** Open the `Frontend` folder and launch the web dashboard in a browser.
-
-✅ **The Smart Parking Monitoring System is ready to use.**
+4. **Run Dashboard:** Start the Node.js backend using `npm start`, then open the frontend using a local Live Server or web browser.
 
 ---
 
