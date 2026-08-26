@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Support - Smart Parking Monitoring and Management System</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <!-- LEFT SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <i class="fas fa-parking brand-icon"></i>
+        <span class="brand-name text-primary">SMART PARKING</span>
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li class="menu-item">
+          <a href="dashboard.html" class="menu-link">
+            <i class="fas fa-chart-line"></i>
+            <span class="menu-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="parking-slots.html" class="menu-link">
+            <i class="fas fa-parking"></i>
+            <span class="menu-text">Parking Slots</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="history.html" class="menu-link">
+            <i class="fas fa-history"></i>
+            <span class="menu-text">History</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="statistics.html" class="menu-link">
+            <i class="fas fa-chart-pie"></i>
+            <span class="menu-text">Statistics</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="reports.html" class="menu-link">
+            <i class="fas fa-file-invoice"></i>
+            <span class="menu-text">Reports</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="settings.html" class="menu-link">
+            <i class="fas fa-cog"></i>
+            <span class="menu-text">Settings</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="about.html" class="menu-link">
+            <i class="fas fa-info-circle"></i>
+            <span class="menu-text">About Project</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="contact.html" class="menu-link">
+            <i class="fas fa-envelope"></i>
+            <span class="menu-text">Contact Support</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <span>IoT Project v1.0.0</span>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+      <!-- TOP NAV HEADER -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="sidebarToggle" class="btn-sidebar-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="status-badge connected">
+            <span class="pulse-dot"></span>
+            <span>ESP32 Real-Time</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Digital Clock -->
+          <div id="headerClock" class="d-none d-md-block text-secondary small fw-medium"></div>
+
+          <!-- Notification Dropdown -->
+          <div class="dropdown">
+            <button class="header-icon-btn dropdown-toggle no-caret" type="button" id="notifButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="far fa-bell"></i>
+              <span id="notifCounter" class="badge-counter" style="display: none;">0</span>
+            </button>
+            <div id="notifList" class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notifButton">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Theme Switcher -->
+          <div class="form-check form-switch m-0 d-flex align-items-center">
+            <input class="form-check-input theme-toggle-checkbox me-2" type="checkbox" id="themeToggle" style="cursor: pointer;">
+            <label class="form-check-label text-secondary small fw-medium" for="themeToggle"><i class="fas fa-moon"></i></label>
+          </div>
+
+          <!-- Profile Dropdown -->
+          <div class="dropdown">
+            <div class="user-profile-menu dropdown-toggle no-caret" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="user-avatar">A</div>
+              <div class="user-info">
+                <span class="user-name">Administrator</span>
+                <span class="user-role">IoT Systems Lead</span>
+              </div>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="background-color: var(--card-bg);">
+              <li><a class="dropdown-item py-2 text-secondary" href="settings.html"><i class="fas fa-user-cog me-2"></i>Account Profile</a></li>
+              <li><hr class="dropdown-divider" style="border-color: var(--border-color);"></li>
+              <li><a class="dropdown-item py-2 text-danger fw-semibold" href="#" onclick="mockLogout()"><i class="fas fa-sign-out-alt me-2"></i>Sign Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <main class="content-body">
+        <div class="row align-items-center mb-4">
+          <div class="col-md-6">
+            <h4 class="fw-bold mb-1">Contact Support</h4>
+            <p class="text-secondary small mb-0">Submit an inquiry to the development lab or view the project location details.</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- 1. INQUIRY FORM COLUMN -->
+          <div class="col-lg-7 mb-4">
+            <div class="custom-card h-100">
+              <div class="card-title-main">
+                <i class="fas fa-paper-plane text-primary"></i>
+                <span>Get in Touch</span>
+              </div>
+              <p class="text-secondary small mb-4">Have questions about board calibrations, database schemas, or code updates? Send us a ticket.</p>
+
+              <form id="contactForm">
+                <div class="mb-3">
+                  <label for="contactName" class="form-label text-secondary small fw-bold">Your Name</label>
+                  <input type="text" id="contactName" class="form-control form-input-custom py-2" placeholder="Enter full name" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="contactEmail" class="form-label text-secondary small fw-bold">Email Address</label>
+                  <input type="email" id="contactEmail" class="form-control form-input-custom py-2" placeholder="name@domain.com" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="contactSubject" class="form-label text-secondary small fw-bold">Subject</label>
+                  <input type="text" id="contactSubject" class="form-control form-input-custom py-2" placeholder="e.g. Sensor threshold configuration request" required>
+                </div>
+
+                <div class="mb-4">
+                  <label for="contactMessage" class="form-label text-secondary small fw-bold">Message Details</label>
+                  <textarea id="contactMessage" class="form-control form-input-custom py-2" rows="5" placeholder="Write message details..." required></textarea>
+                </div>
+
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary px-4 py-2" style="border-radius: 8px;">
+                    <i class="fas fa-paper-plane me-2"></i>Submit Inquiry
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- 2. ADDRESS & MAP COLUMN -->
+          <div class="col-lg-5 mb-4">
+            <div class="custom-card h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="card-title-main">
+                  <i class="fas fa-map-marker-alt text-primary"></i>
+                  <span>Project Location</span>
+                </div>
+                
+                <ul class="list-unstyled text-secondary small" style="line-height: 1.8;">
+                  <li class="mb-2 d-flex align-items-start gap-2">
+                    <i class="fas fa-building mt-1 text-primary"></i>
+                    <span><strong>SLIIT Malabe Campus</strong><br>Faculty of Computing, New Kandy Road, Malabe, Sri Lanka.</span>
+                  </li>
+                  <li class="mb-2 d-flex align-items-center gap-2">
+                    <i class="fas fa-envelope text-primary"></i>
+                    <span>support.parking@sliit.lk</span>
+                  </li>
+                  <li class="mb-2 d-flex align-items-center gap-2">
+                    <i class="fas fa-phone-alt text-primary"></i>
+                    <span>+94 11 754 4801</span>
+                  </li>
+                  <li class="mb-2 d-flex align-items-center gap-2">
+                    <i class="fas fa-clock text-primary"></i>
+                    <span>Lab Hours: Mon - Fri (8:30 AM - 5:30 PM)</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Google Map Embed - Personalized for SLIIT Malabe Campus -->
+              <div class="flex-grow-1 mt-4" style="min-height: 220px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.798511762298!2d79.97036957580665!3d6.914677918342416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae256db1a677115%3A0x2c63e34439bbfd11!2sSLIIT%20Malabe%20Campus!5e0!3m2!1sen!2slk!4v1700000000000!5m2!1sen!2slk" 
+                  width="100%" 
+                  height="100%" 
+                  style="border:0;" 
+                  allowfullscreen="" 
+                  loading="lazy" 
+                  referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Global Scripts -->
+  <script src="js/dashboard.js"></script>
+  <!-- Contact submit handler bind -->
+  <script src="js/parking.js"></script>
+</body>
+</html>

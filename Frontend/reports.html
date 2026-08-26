@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - Smart Parking Monitoring and Management System</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <!-- LEFT SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <i class="fas fa-parking brand-icon"></i>
+        <span class="brand-name text-primary">SMART PARKING</span>
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li class="menu-item">
+          <a href="dashboard.html" class="menu-link">
+            <i class="fas fa-chart-line"></i>
+            <span class="menu-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="parking-slots.html" class="menu-link">
+            <i class="fas fa-parking"></i>
+            <span class="menu-text">Parking Slots</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="history.html" class="menu-link">
+            <i class="fas fa-history"></i>
+            <span class="menu-text">History</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="statistics.html" class="menu-link">
+            <i class="fas fa-chart-pie"></i>
+            <span class="menu-text">Statistics</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="reports.html" class="menu-link">
+            <i class="fas fa-file-invoice"></i>
+            <span class="menu-text">Reports</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="settings.html" class="menu-link">
+            <i class="fas fa-cog"></i>
+            <span class="menu-text">Settings</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="about.html" class="menu-link">
+            <i class="fas fa-info-circle"></i>
+            <span class="menu-text">About Project</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="contact.html" class="menu-link">
+            <i class="fas fa-envelope"></i>
+            <span class="menu-text">Contact Support</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <span>IoT Project v1.0.0</span>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+      <!-- TOP NAV HEADER -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="sidebarToggle" class="btn-sidebar-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="status-badge connected">
+            <span class="pulse-dot"></span>
+            <span>ESP32 Real-Time</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Digital Clock -->
+          <div id="headerClock" class="d-none d-md-block text-secondary small fw-medium"></div>
+
+          <!-- Notification Dropdown -->
+          <div class="dropdown">
+            <button class="header-icon-btn dropdown-toggle no-caret" type="button" id="notifButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="far fa-bell"></i>
+              <span id="notifCounter" class="badge-counter" style="display: none;">0</span>
+            </button>
+            <div id="notifList" class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notifButton">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Theme Switcher -->
+          <div class="form-check form-switch m-0 d-flex align-items-center">
+            <input class="form-check-input theme-toggle-checkbox me-2" type="checkbox" id="themeToggle" style="cursor: pointer;">
+            <label class="form-check-label text-secondary small fw-medium" for="themeToggle"><i class="fas fa-moon"></i></label>
+          </div>
+
+          <!-- Profile Dropdown -->
+          <div class="dropdown">
+            <div class="user-profile-menu dropdown-toggle no-caret" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="user-avatar">A</div>
+              <div class="user-info">
+                <span class="user-name">Administrator</span>
+                <span class="user-role">IoT Systems Lead</span>
+              </div>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="background-color: var(--card-bg);">
+              <li><a class="dropdown-item py-2 text-secondary" href="settings.html"><i class="fas fa-user-cog me-2"></i>Account Profile</a></li>
+              <li><hr class="dropdown-divider" style="border-color: var(--border-color);"></li>
+              <li><a class="dropdown-item py-2 text-danger fw-semibold" href="#" onclick="mockLogout()"><i class="fas fa-sign-out-alt me-2"></i>Sign Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <main class="content-body">
+        <div class="row align-items-center mb-4">
+          <div class="col-md-6">
+            <h4 class="fw-bold mb-1">Generate Parking Reports</h4>
+            <p class="text-secondary small mb-0">Compile historical telemetry summaries into printable templates.</p>
+          </div>
+        </div>
+
+        <!-- GENERATE REPORT CONFIGURATION CARD -->
+        <div class="custom-card">
+          <div class="card-title-main">
+            <i class="fas fa-filter text-primary"></i>
+            <span>Report Parameters</span>
+          </div>
+
+          <form id="reportForm">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label for="reportStartDate" class="form-label text-secondary small fw-bold">Start Date</label>
+                <input type="date" id="reportStartDate" class="form-control form-input-custom py-2" value="2026-06-01" required>
+              </div>
+
+              <div class="col-md-4">
+                <label for="reportEndDate" class="form-label text-secondary small fw-bold">End Date</label>
+                <input type="date" id="reportEndDate" class="form-control form-input-custom py-2" value="2026-06-04" required>
+              </div>
+
+              <div class="col-md-4">
+                <label for="reportSlotSelect" class="form-label text-secondary small fw-bold">Parking Slot</label>
+                <select id="reportSlotSelect" class="form-select form-input-custom py-2">
+                  <option value="all">All Slots (P1 - P4)</option>
+                  <option value="P1">Slot P1</option>
+                  <option value="P2">Slot P2</option>
+                  <option value="P3">Slot P3</option>
+                  <option value="P4">Slot P4</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mt-4 text-end">
+              <button type="submit" id="btnGenerateReport" class="btn btn-primary px-4 py-2" style="border-radius: 8px;">
+                <i class="fas fa-sync-alt me-2"></i>Generate Report
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- REPORT PREVIEW SECTION (HIDDEN BY DEFAULT) -->
+        <div id="reportPreviewSection" style="display: none;">
+          <div class="d-flex align-items-center justify-content-between mt-5 mb-3">
+            <h5 class="fw-bold mb-0">Report Preview</h5>
+            <div class="d-flex gap-2">
+              <button id="btnDownloadReportPdf" class="btn btn-export py-1 px-3">
+                <i class="far fa-file-pdf text-danger"></i> PDF
+              </button>
+              <button id="btnDownloadReportExcel" class="btn btn-export py-1 px-3">
+                <i class="far fa-file-excel text-success"></i> Excel
+              </button>
+            </div>
+          </div>
+
+          <!-- Printable document preview page -->
+          <div class="report-preview-sheet">
+            <!-- Mock Watermark -->
+            <div class="report-watermark">CONFIDENTIAL</div>
+
+            <div class="report-header-section d-flex align-items-center justify-content-between">
+              <div>
+                <h4 class="fw-bold text-dark m-0" style="letter-spacing: 0.5px;">SMART PARKING SOLUTIONS</h4>
+                <p class="text-muted small m-0">University IoT Space Management System</p>
+              </div>
+              <div class="text-end text-muted small">
+                <div>Date: 2026-06-04</div>
+                <div id="previewMetaDateRange">Period: 2026-06-01 to 2026-06-04</div>
+              </div>
+            </div>
+
+            <h5 id="previewMetaTitle" class="fw-bold mb-4 text-center text-dark" style="text-decoration: underline;">
+              Smart Parking Space Report [ALL]
+            </h5>
+
+            <!-- Stat Row -->
+            <div class="row text-center mb-4 g-2">
+              <div class="col-4">
+                <div class="p-3 border rounded">
+                  <div class="text-muted small fw-bold mb-1">Total Entries</div>
+                  <h4 class="fw-bold text-dark m-0" id="previewSummaryEntries">0</h4>
+                </div>
+              </div>
+              
+              <div class="col-4">
+                <div class="p-3 border rounded">
+                  <div class="text-muted small fw-bold mb-1">Avg Occupancy</div>
+                  <h4 class="fw-bold text-dark m-0" id="previewSummaryOccupancy">0%</h4>
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="p-3 border rounded">
+                  <div class="text-muted small fw-bold mb-1">Avg Stay Time</div>
+                  <h4 class="fw-bold text-dark m-0" id="previewSummaryDuration">0 min</h4>
+                </div>
+              </div>
+            </div>
+
+            <!-- Table of report entries -->
+            <table class="table table-bordered small text-dark mt-2">
+              <thead class="table-light">
+                <tr>
+                  <th>Log ID</th>
+                  <th>Parking Slot</th>
+                  <th>Sensor Status</th>
+                  <th>Date</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="reportPreviewTableBody">
+                <!-- Dynamically built in parking.js -->
+              </tbody>
+            </table>
+
+            <div class="row mt-5 text-dark small" style="margin-top: 60px !important;">
+              <div class="col-6">
+                <div>Compiled by:</div>
+                <div class="fw-bold mt-4 border-top pt-1 text-center" style="max-width: 180px;">System Administrator</div>
+              </div>
+              
+              <div class="col-6 text-end">
+                <div>Authorized Signatory:</div>
+                <div class="fw-bold mt-4 border-top pt-1 text-center ms-auto" style="max-width: 180px;">Department Head</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Global Scripts -->
+  <script src="js/dashboard.js"></script>
+  <!-- Interactive Operations JS -->
+  <script src="js/parking.js"></script>
+</body>
+</html>

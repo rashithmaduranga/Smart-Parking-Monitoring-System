@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Project - Smart Parking Monitoring and Management System</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <!-- LEFT SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <i class="fas fa-parking brand-icon"></i>
+        <span class="brand-name text-primary">SMART PARKING</span>
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li class="menu-item">
+          <a href="dashboard.html" class="menu-link">
+            <i class="fas fa-chart-line"></i>
+            <span class="menu-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="parking-slots.html" class="menu-link">
+            <i class="fas fa-parking"></i>
+            <span class="menu-text">Parking Slots</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="history.html" class="menu-link">
+            <i class="fas fa-history"></i>
+            <span class="menu-text">History</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="statistics.html" class="menu-link">
+            <i class="fas fa-chart-pie"></i>
+            <span class="menu-text">Statistics</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="reports.html" class="menu-link">
+            <i class="fas fa-file-invoice"></i>
+            <span class="menu-text">Reports</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="settings.html" class="menu-link">
+            <i class="fas fa-cog"></i>
+            <span class="menu-text">Settings</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="about.html" class="menu-link">
+            <i class="fas fa-info-circle"></i>
+            <span class="menu-text">About Project</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="contact.html" class="menu-link">
+            <i class="fas fa-envelope"></i>
+            <span class="menu-text">Contact Support</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <span>IoT Project v1.0.0</span>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+      <!-- TOP NAV HEADER -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="sidebarToggle" class="btn-sidebar-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="status-badge connected">
+            <span class="pulse-dot"></span>
+            <span>ESP32 Real-Time</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Digital Clock -->
+          <div id="headerClock" class="d-none d-md-block text-secondary small fw-medium"></div>
+
+          <!-- Notification Dropdown -->
+          <div class="dropdown">
+            <button class="header-icon-btn dropdown-toggle no-caret" type="button" id="notifButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="far fa-bell"></i>
+              <span id="notifCounter" class="badge-counter" style="display: none;">0</span>
+            </button>
+            <div id="notifList" class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notifButton">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Theme Switcher -->
+          <div class="form-check form-switch m-0 d-flex align-items-center">
+            <input class="form-check-input theme-toggle-checkbox me-2" type="checkbox" id="themeToggle" style="cursor: pointer;">
+            <label class="form-check-label text-secondary small fw-medium" for="themeToggle"><i class="fas fa-moon"></i></label>
+          </div>
+
+          <!-- Profile Dropdown -->
+          <div class="dropdown">
+            <div class="user-profile-menu dropdown-toggle no-caret" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="user-avatar">A</div>
+              <div class="user-info">
+                <span class="user-name">Administrator</span>
+                <span class="user-role">IoT Systems Lead</span>
+              </div>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="background-color: var(--card-bg);">
+              <li><a class="dropdown-item py-2 text-secondary" href="settings.html"><i class="fas fa-user-cog me-2"></i>Account Profile</a></li>
+              <li><hr class="dropdown-divider" style="border-color: var(--border-color);"></li>
+              <li><a class="dropdown-item py-2 text-danger fw-semibold" href="#" onclick="mockLogout()"><i class="fas fa-sign-out-alt me-2"></i>Sign Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <main class="content-body">
+        <div class="row align-items-center mb-4">
+          <div class="col-md-6">
+            <h4 class="fw-bold mb-1">About the Project</h4>
+            <p class="text-secondary small mb-0">Learn about our university IoT initiative and meet the engineering development team.</p>
+          </div>
+        </div>
+
+        <!-- 1. PROJECT DESCRIPTION & OBJECTIVES -->
+        <div class="row">
+          <div class="col-lg-8 mb-4">
+            <div class="custom-card h-100">
+              <div class="card-title-main">
+                <i class="fas fa-university text-primary"></i>
+                <span>Project Overview & Objectives</span>
+              </div>
+              <p class="text-secondary small" style="line-height: 1.6;">
+                The <strong>Smart Parking Space Monitoring and Management System with Real-Time Web Dashboard</strong> is an IoT-based solution designed to resolve campus and urban parking congestion. Utilizing high-frequency ultrasonic sensors connected to microcontrollers, the system tracks parking slot occupancy and forwards logs to a remote server.
+              </p>
+              
+              <h6 class="fw-bold text-primary mt-4 mb-3">Key Project Objectives:</h6>
+              <ul class="text-secondary small ps-3 mb-0" style="line-height: 1.6;">
+                <li class="mb-2">Implement low-cost ultrasonic sensors to monitor parking slot availability with centimeter precision.</li>
+                <li class="mb-2">Facilitate real-time HTTP post-telemetry updates from ESP32 microcontrollers to Java Spring Boot REST endpoints.</li>
+                <li class="mb-2">Store and query chronological sensor logs efficiently in a MySQL relational database system.</li>
+                <li class="mb-2">Deliver a responsive web dashboard utilizing modern charts, responsive tables, and theme switches to improve the parking administration experience.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 2. TECHNOLOGIES USED -->
+          <div class="col-lg-4 mb-4">
+            <div class="custom-card h-100">
+              <div class="card-title-main">
+                <i class="fas fa-cubes text-primary"></i>
+                <span>Technologies Integrated</span>
+              </div>
+              
+              <div class="d-flex flex-wrap gap-2 mt-2">
+                <span class="badge py-2 px-3 bg-secondary bg-opacity-10 border border-secondary text-secondary rounded-pill small"><i class="fas fa-microchip me-1"></i> ESP32</span>
+                <span class="badge py-2 px-3 bg-secondary bg-opacity-10 border border-secondary text-secondary rounded-pill small"><i class="fas fa-broadcast-tower me-1"></i> HC-SR04</span>
+                <span class="badge py-2 px-3 bg-secondary bg-opacity-10 border border-secondary text-secondary rounded-pill small"><i class="fab fa-java me-1"></i> Spring Boot</span>
+                <span class="badge py-2 px-3 bg-secondary bg-opacity-10 border border-secondary text-secondary rounded-pill small"><i class="fas fa-database me-1"></i> MySQL</span>
+                <span class="badge py-2 px-3 bg-secondary bg-opacity-10 border border-secondary text-secondary rounded-pill small"><i class="fab fa-html5 me-1"></i> HTML5</span>
+                <span class="badge py-2 px-3 bg-secondary bg-opacity-10 border border-secondary text-secondary rounded-pill small"><i class="fab fa-css3-alt me-1"></i> CSS3</span>
+                <span class="badge py-2 px-3 bg-secondary bg-opacity-10 border border-secondary text-secondary rounded-pill small"><i class="fab fa-js me-1"></i> JavaScript</span>
+                <span class="badge py-2 px-3 bg-secondary bg-opacity-10 border border-secondary text-secondary rounded-pill small"><i class="fab fa-bootstrap me-1"></i> Bootstrap 5</span>
+                <span class="badge py-2 px-3 bg-secondary bg-opacity-10 border border-secondary text-secondary rounded-pill small"><i class="fas fa-chart-pie me-1"></i> Chart.js</span>
+              </div>
+
+              <div class="mt-4 pt-2 border-top border-color">
+                <div class="alert alert-secondary border-0 p-3 mb-0 small text-secondary" style="border-radius: 8px;">
+                  <i class="fas fa-check-circle text-success me-2"></i><strong>Hardware Spec:</strong> ESP32 connects via Wi-Fi and triggers sensor distance readings every 2 seconds.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. SYSTEM PIPELINE DIAGRAM -->
+        <div class="custom-card mb-5">
+          <div class="card-title-main">
+            <i class="fas fa-project-diagram text-primary"></i>
+            <span>System Pipeline Flowchart</span>
+          </div>
+
+          <div class="pipeline-flow">
+            <!-- Step 1 -->
+            <div class="pipeline-step">
+              <i class="fas fa-car-alt pipeline-step-icon"></i>
+              <div class="pipeline-step-title">1. Vehicle Entry</div>
+              <div class="pipeline-step-desc">Car parks inside the designated space.</div>
+            </div>
+            
+            <!-- Arrow -->
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+            
+            <!-- Step 2 -->
+            <div class="pipeline-step">
+              <i class="fas fa-broadcast-tower pipeline-step-icon"></i>
+              <div class="pipeline-step-title">2. Sensor Range</div>
+              <div class="pipeline-step-desc">HC-SR04 registers distance &lt; 50cm.</div>
+            </div>
+            
+            <!-- Arrow -->
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <!-- Step 3 -->
+            <div class="pipeline-step">
+              <i class="fas fa-microchip pipeline-step-icon"></i>
+              <div class="pipeline-step-title">3. ESP32 Payload</div>
+              <div class="pipeline-step-desc">Dispatches sensor status payload over Wi-Fi.</div>
+            </div>
+            
+            <!-- Arrow -->
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <!-- Step 4 -->
+            <div class="pipeline-step">
+              <i class="fab fa-java pipeline-step-icon"></i>
+              <div class="pipeline-step-title">4. Spring Boot &amp; DB</div>
+              <div class="pipeline-step-desc">API captures event and stores in MySQL logs.</div>
+            </div>
+            
+            <!-- Arrow -->
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <!-- Step 5 -->
+            <div class="pipeline-step">
+              <i class="fas fa-desktop pipeline-step-icon"></i>
+              <div class="pipeline-step-title">5. Web View</div>
+              <div class="pipeline-step-desc">Dashboard UI pulls/receives real-time state.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. TEAM SECTION: 6 CARDS -->
+        <h5 class="fw-bold mb-4">Project Development Team</h5>
+        <div class="row">
+          <!-- Member 1 -->
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="team-card h-100">
+              <div class="team-member-avatar" style="background-color: #2563eb;">OW</div>
+              <div class="member-name">Perera L.O.W</div>
+              <div class="member-role">HARDWARE ASSEMBLY</div>
+              <p class="member-bio text-secondary">Responsible for assembling the ESP32, ultrasonic sensors, IR sensors, LEDs, servo motors, OLED display and other hardware components of the smart parking system.</p>
+              <div class="social-links">
+                <a href="#" class="social-icon-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon-btn"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Member 2 -->
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="team-card h-100">
+              <div class="team-member-avatar" style="background-color: #10b981;">DP</div>
+              <div class="member-name">Adikaram A.M.D.P</div>
+              <div class="member-role">HARDWARE ASSEMBLY</div>
+              <p class="member-bio text-secondary">Handles circuit wiring, sensor connections, LED control, servo motor connections and testing of the complete smart parking hardware setup.</p>
+              <div class="social-links">
+                <a href="#" class="social-icon-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon-btn"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Member 3 -->
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="team-card h-100">
+              <div class="team-member-avatar" style="background-color: #ef4444;">IA</div>
+              <div class="member-name">Ahamed M.F.I	</div>
+              <div class="member-role">ARDUINO DEVELOPER</div>
+              <p class="member-bio text-secondary">Develops ESP32 and Arduino code for ultrasonic sensors, IR sensors, servo gates, LEDs, OLED display and real-time parking slot detection.</p>
+              <div class="social-links">
+                <a href="#" class="social-icon-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon-btn"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Member 4 -->
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="team-card h-100">
+              <div class="team-member-avatar" style="background-color: #f59e0b;">SM</div>
+              <div class="member-name">Safiyah M.M</div>
+              <div class="member-role">ARDUINO CODING</div>
+              <p class="member-bio text-secondary">Responsible for ESP32 communication, Wi-Fi connectivity, backend API communication, vehicle entry and exit detection and system automation.</p>
+              <div class="social-links">
+                <a href="#" class="social-icon-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon-btn"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Member 5 -->
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="team-card h-100">
+              <div class="team-member-avatar" style="background-color: #8b5cf6;">KS</div>
+              <div class="member-name">Welikala K.S</div>
+              <div class="member-role">UI/UX & DATABASE DEVELOPMENT</div>
+              <p class="member-bio text-secondary">Designs the dashboard user interface and user experience while developing and managing the MongoDB database for parking slots, sensor data, vehicle entry/exit records, parking history, and real-time system information.</p>
+              <div class="social-links">
+                <a href="#" class="social-icon-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon-btn"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Member 6 -->
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="team-card h-100">
+              <div class="team-member-avatar" style="background-color: #ec4899;">RM</div>
+              <div class="member-name">Maduranga W.A.R</div>
+              <div class="member-role">BACKEND & FRONTEND DEVELOPMENT</div>
+              <p class="member-bio text-secondary">Responsible for developing the backend and frontend of the Smart Parking System, including API development, database integration, ESP32 communication, parking slot data processing, and dashboard integration</p>
+              <div class="social-links">
+                <a href="#" class="social-icon-btn"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon-btn"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Global Scripts -->
+  <script src="js/dashboard.js"></script>
+  <!-- UI Interactions logic -->
+  <script src="js/parking.js"></script>
+</body>
+</html>

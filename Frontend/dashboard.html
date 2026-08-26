@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Smart Parking monitoring and Management System</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <!-- LEFT SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand">
+        <i class="fas fa-parking brand-icon"></i>
+        <span class="brand-name text-primary">SPMS</span> 
+      </div>
+      
+      <ul class="sidebar-menu">
+        <li class="menu-item">
+          <a href="dashboard.html" class="menu-link">
+            <i class="fas fa-chart-line"></i>
+            <span class="menu-text">Dashboard</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="parking-slots.html" class="menu-link">
+            <i class="fas fa-parking"></i>
+            <span class="menu-text">Parking Slots</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="history.html" class="menu-link">
+            <i class="fas fa-history"></i>
+            <span class="menu-text">History</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="statistics.html" class="menu-link">
+            <i class="fas fa-chart-pie"></i>
+            <span class="menu-text">Statistics</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="reports.html" class="menu-link">
+            <i class="fas fa-file-invoice"></i>
+            <span class="menu-text">Reports</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="settings.html" class="menu-link">
+            <i class="fas fa-cog"></i>
+            <span class="menu-text">Settings</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="about.html" class="menu-link">
+            <i class="fas fa-info-circle"></i>
+            <span class="menu-text">About Project</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="contact.html" class="menu-link">
+            <i class="fas fa-envelope"></i>
+            <span class="menu-text">Contact Support</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <span>IoT Project v1.0.0</span>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content">
+      <!-- TOP NAV HEADER -->
+      <header class="top-header">
+        <div class="header-left">
+          <button id="sidebarToggle" class="btn-sidebar-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="status-badge connected">
+            <span class="pulse-dot"></span>
+            <span>ESP32 Real-Time</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Digital Clock -->
+          <div id="headerClock" class="d-none d-md-block text-secondary small fw-medium"></div>
+
+          <!-- Notification Dropdown -->
+          <div class="dropdown">
+            <button class="header-icon-btn dropdown-toggle no-caret" type="button" id="notifButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="far fa-bell"></i>
+              <span id="notifCounter" class="badge-counter" style="display: none;">0</span>
+            </button>
+            <div id="notifList" class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notifButton">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Theme Switcher Checkbox -->
+          <div class="form-check form-switch m-0 d-flex align-items-center">
+            <input class="form-check-input theme-toggle-checkbox me-2" type="checkbox" id="themeToggle" style="cursor: pointer;">
+            <label class="form-check-label text-secondary small fw-medium" for="themeToggle"><i class="fas fa-moon"></i></label>
+          </div>
+
+          <!-- Profile Info Dropdown -->
+          <div class="dropdown">
+            <div class="user-profile-menu dropdown-toggle no-caret" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="user-avatar">A</div>
+              <div class="user-info">
+                <span class="user-name">Administrator</span>
+                <span class="user-role">IoT Systems Lead</span>
+              </div>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="background-color: var(--card-bg);">
+              <li><a class="dropdown-item py-2 text-secondary" href="settings.html"><i class="fas fa-user-cog me-2"></i>Account Profile</a></li>
+              <li><hr class="dropdown-divider" style="border-color: var(--border-color);"></li>
+              <li><a class="dropdown-item py-2 text-danger fw-semibold" href="#" onclick="mockLogout()"><i class="fas fa-sign-out-alt me-2"></i>Sign Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <main class="content-body">
+        <div class="row align-items-center mb-4">
+          <div class="col-md-6">
+            <h4 class="fw-bold mb-1">Parking Analytics Dashboard</h4>
+            <p class="text-secondary small mb-0">Monitor telemetry sensor feeds from ESP32 microcontrollers in real-time.</p>
+          </div>
+          <!-- IR VEHICLE COUNT -->
+<div class="row mb-4 mt-4">
+
+  <!-- Vehicle Entry -->
+  <div class="col-12 col-sm-6 col-lg-4 mb-3">
+    <div class="custom-card widget-card h-100">
+      <div class="widget-info">
+        <div class="widget-title">Vehicle Entry</div>
+        <div id="dashEntryCount" class="widget-value text-primary">0</div>
+        <div class="small text-muted">
+          <i class="fas fa-arrow-right-to-bracket text-primary me-1"></i>
+          Vehicles Entered
+        </div>
+      </div>
+
+      <div class="widget-icon primary">
+        <i class="fas fa-right-to-bracket"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vehicle Exit -->
+  <div class="col-12 col-sm-6 col-lg-4 mb-3">
+    <div class="custom-card widget-card h-100">
+      <div class="widget-info">
+        <div class="widget-title">Vehicle Exit</div>
+        <div id="dashExitCount" class="widget-value text-warning">0</div>
+        <div class="small text-muted">
+          <i class="fas fa-arrow-right-from-bracket text-warning me-1"></i>
+          Vehicles Exited
+        </div>
+      </div>
+
+      <div class="widget-icon warning">
+        <i class="fas fa-right-from-bracket"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vehicles Inside -->
+  <div class="col-12 col-sm-6 col-lg-4 mb-3">
+    <div class="custom-card widget-card h-100">
+      <div class="widget-info">
+        <div class="widget-title">Vehicles Inside</div>
+        <div id="dashVehiclesInside" class="widget-value text-success">0</div>
+        <div class="small text-muted">
+          <i class="fas fa-car-side text-success me-1"></i>
+          Currently Inside
+        </div>
+      </div>
+
+      <div class="widget-icon success">
+        <i class="fas fa-car-side"></i>
+      </div>
+    </div>
+  </div>
+
+</div>
+          <div class="col-md-6 text-md-end mt-3 mt-md-0">
+            <a href="parking-slots.html" class="btn btn-primary btn-sm px-3 rounded-pill shadow-sm">
+              <i class="fas fa-parking me-2"></i>View Live Slots Grid
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 TELEMETRY COUNTER WIDGETS -->
+        <div class="row mb-4">
+          <!-- Card 1: Total Slots -->
+          <div class="col-12 col-sm-6 col-lg-3 mb-4">
+            <div class="custom-card widget-card h-100">
+              <div class="widget-info">
+                <div class="widget-title">Total Slots</div>
+                <div id="dashTotalSlots" class="widget-value">0</div>
+                <div class="small text-muted"><i class="fas fa-university me-1"></i>Campus Garage A</div>
+              </div>
+              <div class="widget-icon primary">
+                <i class="fas fa-car-alt"></i>
+              </div>
+            </div>
+          </div>
+          <!-- Card 2: Available Slots -->
+          <div class="col-12 col-sm-6 col-lg-3 mb-4">
+            <div class="custom-card widget-card h-100">
+              <div class="widget-info">
+                <div class="widget-title">Available Slots</div>
+                <div id="dashAvailSlots" class="widget-value text-success">0</div>
+                <div class="small text-muted"><i class="fas fa-check-circle text-success me-1"></i>Vacant & Ready</div>
+              </div>
+              <div class="widget-icon success">
+                <i class="fas fa-parking"></i>
+              </div>
+            </div>
+          </div>
+          <!-- Card 3: Occupied Slots -->
+          <div class="col-12 col-sm-6 col-lg-3 mb-4">
+            <div class="custom-card widget-card h-100">
+              <div class="widget-info">
+                <div class="widget-title">Occupied Slots</div>
+                <div id="dashOccupSlots" class="widget-value text-danger">0</div>
+                <div class="small text-muted"><i class="fas fa-times-circle text-danger me-1"></i>Parked Vehicles</div>
+              </div>
+              <div class="widget-icon danger">
+                <i class="fas fa-car text-danger"></i>
+              </div>
+            </div>
+          </div>
+          <!-- Card 4: Occupancy Rate -->
+          <div class="col-12 col-sm-6 col-lg-3 mb-4">
+            <div class="custom-card widget-card h-100">
+              <div class="widget-info" style="width: 100%;">
+                <div class="widget-title">Occupancy Rate</div>
+                <div id="dashOccupRate" class="widget-value">0%</div>
+                <div class="progress widget-progress">
+                  <div id="dashOccupRateBar" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+                </div>
+              </div>
+              <div class="widget-icon warning">
+                <i class="fas fa-percentage text-warning"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- PIE CHART & BAR CHART GRID -->
+          <div class="col-lg-8 mb-4">
+            <div class="row">
+              <!-- Visual Chart 1: Bar Chart -->
+              <div class="col-12 mb-4">
+                <div class="custom-card">
+                  <div class="card-title-main">
+                    <i class="fas fa-chart-bar text-primary"></i>
+                    <span>Hourly Parking Load (Today)</span>
+                  </div>
+                  <div style="position: relative; height: 300px;">
+                    <canvas id="dashboardBarChart"></canvas>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Visual Chart 2: Donut Chart -->
+              <div class="col-md-6 mb-4">
+                <div class="custom-card h-100">
+                  <div class="card-title-main">
+                    <i class="fas fa-chart-pie text-primary"></i>
+                    <span>Occupancy Breakdown</span>
+                  </div>
+                  <div style="position: relative; height: 230px;">
+                    <canvas id="dashboardPieChart"></canvas>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mini-Grid of Quick Slot Summaries -->
+              <div class="col-md-6 mb-4">
+                <div class="custom-card h-100">
+                  <div class="card-title-main">
+                    <i class="fas fa-info-circle text-primary"></i>
+                    <span>Sensor Telemetry Summary</span>
+                  </div>
+                  <div class="row g-2 mt-2" id="dashSummaryGrid">
+                    <!-- Dynamically populated P1-P4 mini statuses -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT LOGS SIDE PANEL: RECENT ACTIVITIES -->
+          <div class="col-lg-4 mb-4">
+            <div class="custom-card h-100">
+              <div class="card-title-main">
+                <i class="fas fa-stream text-primary"></i>
+                <span>Live Event Logger</span>
+              </div>
+              <p class="text-secondary small mb-3">Logs updates caught by HC-SR04 ultrasonic sensors in real-time.</p>
+              
+              <ul id="dashActivityList" class="activity-list mt-3">
+                <!-- Dynamically populated by telemetry sensor toggle simulation -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- BootStrap 5 Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Chart.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Custom General Script -->
+  <script src="js/dashboard.js"></script>
+  <!-- Custom Charts Configuration -->
+  <script src="js/charts.js"></script>
+  <!-- Custom Specific Page Operations -->
+  <script src="js/parking.js"></script>
+</body>
+</html>

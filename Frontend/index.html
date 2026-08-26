@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Smart Parking space Monitoring and Management System</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href="css/style.css" rel="stylesheet">
+  <style>
+    /* Inline adjustment to ensure html element is optimized for login page */
+    html, body {
+      height: 100%;
+    }
+  </style>
+</head>
+<body class="login-body">
+
+  <div class="login-card text-center">
+    <!-- Project Logo -->
+    <div class="logo-container">
+      <i class="fas fa-parking text-primary"></i>
+    </div>
+    
+    <!-- Title -->
+    <h3 class="fw-bold mb-1">SMART PARKING</h3>
+    <p class="text-white-50 small mb-4">University IoT Space Monitoring & Management</p>
+
+    <!-- Error Message Alert -->
+    <div id="loginError" class="alert alert-danger border-0 py-2 small" style="display: none; background-color: rgba(239, 68, 68, 0.2); color: #FF9494;">
+      <i class="fas fa-exclamation-circle me-1"></i> Invalid username or password!
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" novalidate>
+      <div class="mb-3 text-start">
+        <label for="username" class="form-label small text-white-50">Username</label>
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 border-white-50 text-white-50">
+            <i class="fas fa-user-circle"></i>
+          </span>
+          <input type="text" class="form-control border-start-0" id="username" placeholder="Enter username" required autocomplete="username">
+        </div>
+      </div>
+
+      <div class="mb-3 text-start">
+        <label for="password" class="form-label small text-white-50">Password</label>
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 border-white-50 text-white-50">
+            <i class="fas fa-lock"></i>
+          </span>
+          <input type="password" class="form-control border-start-0" id="password" placeholder="Enter password" required autocomplete="current-password">
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center justify-content-between mb-4 small">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="rememberMe">
+          <label class="form-check-label text-white-50" for="rememberMe">Remember Me</label>
+        </div>
+        <a href="#" class="text-white-50 text-decoration-none" onclick="forgotPasswordDemo()">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="btn btn-login w-100 mb-3">
+        <i class="fas fa-sign-in-alt me-2"></i>Login to Dashboard
+      </button>
+    </form>
+
+    <div class="text-white-50 small mt-4" style="font-size: 0.75rem;">
+      University IoT Project Team &copy; 2026
+    </div>
+  </div>
+
+  <!-- Custom Scripts for Demo Login -->
+  <script>
+    // Bypass validation checks if already authenticated
+    if (localStorage.getItem('parking_auth')) {
+      window.location.href = 'dashboard.html';
+    }
+
+    const form = document.getElementById('loginForm');
+    const errorAlert = document.getElementById('loginError');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const usernameInput = document.getElementById('username').value.trim();
+      const passwordInput = document.getElementById('password').value.trim();
+
+      // Demo verification (admin/admin or admin/1234, or any user for developer ease)
+      if (usernameInput.toLowerCase() === 'admin' && (passwordInput === 'admin' || passwordInput === '1234')) {
+        // Authenticated successfully
+        localStorage.setItem('parking_auth', 'true');
+        localStorage.setItem('parking_username', usernameInput);
+        
+        // Show indicator and redirect
+        const btn = form.querySelector('.btn-login');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Authenticating...';
+        
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1000);
+      } else {
+        // Validation failure
+        errorAlert.style.display = 'block';
+        setTimeout(() => {
+          errorAlert.style.display = 'none';
+        }, 4000);
+      }
+    });
+
+    function forgotPasswordDemo() {
+      alert("Demo Mode: For testing, use Username: 'admin' and Password: 'admin' or '1234'.");
+    }
+  </script>
+</body>
+</html>
