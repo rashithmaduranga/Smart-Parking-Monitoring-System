@@ -9,7 +9,6 @@
 
 An IoT-based **Smart Parking Monitoring System** built using ESP32, sensors, Node.js, Express.js, MongoDB, and a web dashboard. The system monitors parking slot availability, vehicle entry and exit, and provides real-time parking information through a web-based interface.
 
-🔴https://rashithmaduranga.github.io/Smart-Parking-Monitoring-System/
 ---
 
 ## ✨ Key Features
